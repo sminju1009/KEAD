@@ -4,7 +4,7 @@ import mysql.connector
 from math import sqrt
 import numpy as np
 from openpyxl import Workbook
-
+import time 
 
 #MySQL 연결 설정 // 사용할 sql 정보로 커스텀 필요!!
 db_connection = mysql.connector.connect(
@@ -35,13 +35,13 @@ def get_neighbors(user, neighbor_list, k):
 		distances.append((neighbor, dist))
 	distances.sort(key=lambda tup: tup[1])
 
-	print('neighbors distances : ', distances)
+	# print('neighbors distances : ', distances)
 
 	near_neighbors = list()
 	for i in range(k):
 		near_neighbors.append(distances[i][0])
 
-	print('near neighbors : ', near_neighbors)
+	# print('near neighbors : ', near_neighbors)
 
 	return near_neighbors
 
@@ -82,16 +82,21 @@ for row in bookreport_matrix:
 # 알고리즘을 테스트해봅시다.
 k = 5
 
+start = time.time()
+
 for user in base_matrix:
     neighbor_list = []
     for row in base_matrix:
         if np.array_equal(user, row):
             continue  # 자기 자신은 이웃이 아니므로 건너뜁니다.
         neighbor_list.append(row)
-        # 여기서부터 neighbor_list를 사용하여 작업을 수행합니다.
-	for elem in user if not np.isnan(elem):
-        prediction = predict_classification(user, neighbor_list, k)
-		elem = prediction
+    # 여기서부터 neighbor_list를 사용하여 작업을 수행합니다.
+    
+    for idx in range(len(user)):
+        if np.isnan(user[idx]):
+            user[idx] = predict_classification(user, neighbor_list, k, idx)
+            print(idx, '번째 원소 수정함' )
+
 
 
 
@@ -126,9 +131,11 @@ for i, row in enumerate(base_matrix, start=1):
         ws.cell(row=i, column=j).value = value
 
 # 엑셀 파일을 저장합니다.
-wb.save("book_report.xlsx")
+wb.save("book_report2.xlsx")
 print('엑셀 파일이 생성되었습니다.')
 
+end = time.time()
+print(end - start)
 
 
 
