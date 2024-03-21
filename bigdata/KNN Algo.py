@@ -21,11 +21,12 @@ base_matrix = matrix = np.full((51, 251), np.nan)
 
 # KNN 함수 컨설턴트님거 뜯어옴
 def euclidean_distance(user, neighbor):
-	distance = 0.0
-	for i in range(len(user)-1):
-		if not np.isnan(user[i]) and not np.isnan(neighbor[i]):
-		    distance += (user[i] - neighbor[i])**2
-	return sqrt(distance)
+    distance = 0.0
+    for i in range(len(user)-1):
+        if not np.isnan(user[i]) and not np.isnan(neighbor[i]):
+            distance += (user[i] - neighbor[i])**2
+    return sqrt(distance)
+
 
 
 def get_neighbors(user, neighbor_list, k):
@@ -131,7 +132,7 @@ for i, row in enumerate(base_matrix, start=1):
         ws.cell(row=i, column=j).value = value
 
 # 엑셀 파일을 저장합니다.
-wb.save("book_report2.xlsx")
+wb.save("book_report.xlsx")
 print('엑셀 파일이 생성되었습니다.')
 
 end = time.time()
