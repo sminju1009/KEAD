@@ -5,25 +5,36 @@ import mysql.connector
 import operator
 import json
 
-# 입력값 유사도 구할 개수
-K = 3
+# 출력은 csv파일 => 입력 받은 회원 아이디에 해당하는 추천책 리스트(책ID, 평점(0~1), 이미지주소)
+
+# 입력해 주어야 하는 값
+# 유사도 구할 개수 : K
+# 추천해줄 member번호 : target_member_id
+# sql 스키마 이름 : schema_name
+# DB정보 : db_connection
+
+K = 5
+target_member_id = 1
+schema_name = "book_test"
 
 #MySQL 연결 설정 자신sql정보 삽입
 db_connection = mysql.connector.connect(
     host="127.0.0.1",
     user="root",
     password="0000",
-    database="book_test"
+    database=schema_name
 )
+
 # 커서 생성
 cursor = db_connection.cursor()
 
 # 독후감 테이블 안의 모든 파일 목록 가져오기
-query = "select book_id,member_id,book_member_rate from book_test.Book_report" #선택쿼리문
+query = "select book_id,member_id,book_member_rate from %s.Book_report"%(schema_name) #선택쿼리문
 cursor.execute(query)
 Book_report_data = cursor.fetchall() # 모두 가져오는옵션
 
 
+# 유사도 계산
 def Similarity(R,start_member_id,start_book_id):
     origin_array = R.toarray() # 희소행렬을 원래 배열로 만드는거 같은데 어차피 전체 배열로 계산해서 필요없는 과정인듯
 
@@ -58,14 +69,14 @@ def Similarity(R,start_member_id,start_book_id):
     #np.fill_diagonal(UbyU, 0)
 
     # 계산된 모든 유저간 유사도 행렬 파일로 저장
-    sim_array = pd.DataFrame(user_sim_array)
-    sim_array.to_csv('sissm.csv', encoding="utf-8")
+    #sim_array = pd.DataFrame(user_sim_array)
+    #sim_array.to_csv('sissm.csv', encoding="utf-8")
 
     # 유사도 구한 다음에 예상평점 계산하기 위해 유사도 행렬 리턴
     return user_sim_array
 
 
-# 유사도 행렬을 입력받고 평점이 NULL인 영화 평점계산
+# 유사도 행렬을 입력받고 평점이 NULL인 책 평점계산
 def predicted_rating(R, K, start_member_id, start_book_id):
     UbyU = Similarity(R,start_member_id,start_book_id) # 계산된 유사도 행렬 받음
     renew_list=[]
@@ -81,13 +92,15 @@ def predicted_rating(R, K, start_member_id, start_book_id):
     # 정렬된 유사도 인덱스 값 저장
     # sort_sim = pd.DataFrame(sort_UbyU)
     # sort_sim.to_csv("sim.csv",encoding="utf=8")
+    #df_result = pd.DataFrame(only_recommand_array)  # 최종 계산된 평점 행렬
+    #df_result.to_csv('osssssssrigin.csv', encoding="utf-8")  # 기본 평점 행렬 저장
 
-    user_recommend_dict ={}
+    #user_recommend_dict ={} # 회원별 평점 정렬위한 딕셔너리(사용안함)
 
     # 기존 평점 행렬에서 NULL(nan)인 애들만 추천 평점 계산 할 수 있음(당연히 본 애들은 추천 필요x) / 모두 탐색
     for user in range(user_size):  # i번쨰 사람
-        for book in range(item_size):  # j번째 영화
-            # 지금 유저의 영화 1개(j++) 씩 보면서 안본 영화(평점이 NULL) 만 계산 시작
+        for book in range(item_size):  # j번째 책
+            # 지금 유저의 책 1개(j++) 씩 보면서 안본 책(평점이 NULL) 만 계산 시작
             if (~np.isnan(only_recommand_array[user][book])): continue# 만약 준 평점 이면  == (nan) 이면 다음 루프로
 
             you = 0 # you번째 유사도 선택위한 값 / 제일 낮은 애부터 시작 이거 보다 낮은 애들은 어차피 0 이나 null 이겟지?
@@ -100,31 +113,37 @@ def predicted_rating(R, K, start_member_id, start_book_id):
                 if (you == user): continue # 만약 자기자신의 유사도인 경우는 무시해야함
                 # 친구 선정 및 계산
                 target = sort_UbyU[user][you + start_member_id] # 유사도 제일 높은애(you 를 1씩 증가시키면 유사도 내림차순으로 애들선정) # 최소값 start_member_id부터 시작
-                sum_sim += UbyU[user][target]  # 분모 = 나와 다른애들 k명 각각의 유사도의 합
-                sum_sim_score += UbyU[user][target] * only_recommand_array[target][book] # 분자 각각의(유사도 * 평점)의합
+                if np.isnan(target):continue
+                denominator = UbyU[user][target]  # 지금 애 분모
+                if np.isnan(denominator):continue
+                sum_sim += denominator  # 분모 = 나와 다른애들 k명 각각의 유사도의 합
+                numerator = UbyU[user][target] * only_recommand_array[target][book]  # 지금 애 분자
+                if np.isnan(numerator): continue
+                sum_sim_score += numerator # 분자 각각의(유사도 * 평점)의합
 
             if (sum_sim == 0): # 분모가 0인 경우 = k명의 모든 사람과 유사도가 0
                 now_book_recommend = 0 # 평점 0 - 제일 낮은 값
             else: # 분모 0 아닌 모든 경우
                 now_book_recommend = sum_sim_score / sum_sim # 계산된 평점 값
 
-                # 유저별 추천영화 dict로 저장
-                if ~np.isnan(now_book_recommend): # nan이 아닌 경우만 저장
-                    if user in user_recommend_dict: # dict에 한번 저장한 경우
-                        user_recommend_dict[user].append({"book_id":book,"score":now_book_recommend})
-                    else: # dict가 처음인 경우
-                        user_recommend_dict[user] = []
-                        user_recommend_dict[user].append({"book":book,"score":now_book_recommend})
+                # 유저별 추천책 dict로 저장 - 필요 없는 부분
+                # if ~np.isnan(now_book_recommend): # nan이 아닌 경우만 저장
+                #     if user in user_recommend_dict: # dict에 한번 저장한 경우
+                #         user_recommend_dict[user].append({"book_id":book,"score":now_book_recommend})
+                #     else: # dict가 처음인 경우
+                #         user_recommend_dict[user] = []
+                #         user_recommend_dict[user].append({"book":book,"score":now_book_recommend})
 
             R_predicted[user][book] = now_book_recommend # 전체 추천 평점 행렬의 user,book 칸에 계산 평점 추가
             renew_list.append(now_book_recommend) # 계산된 모든 평점:개수 관계를 보기 위해 리스트에 저장
 
 
-
-    count_recommend_book=0 # 계산된 영화 수
+    count_able_book = 0 # 계산 가능한 전체 책수 null인 책들
+    count_recommend_book=0 # 계산된 책 수
     # 계산된 추천 평점별 개수 계산
     count_dict = {} # 평점:개수 저장할 딕셔너리
     for now in renew_list:
+        count_able_book += 1
         # 만약 계산값이 nan인거는 개수 안구함
         if np.isnan(now):
             continue
@@ -138,22 +157,41 @@ def predicted_rating(R, K, start_member_id, start_book_id):
     # 평점:개수 개수 오름차순 정렬
     score_count_sort = sorted(count_dict.items(), key=operator.itemgetter(1))
 
-    print("계산된 영화 수",count_recommend_book)
+    print("계산 가능 책수",count_able_book,"계산된 책 수",count_recommend_book)
 
     # 유저별 추천된 책 내림차순 정리
-    score_count_sort = sorted(user_recommend_dict.items()) # 유저번호 오름차순 정렬
-    with open("user_rcm.json", 'w', encoding='utf-8') as f:
-        for users in score_count_sort: # 각 유저 추천영화정보
-            data = sorted(users[1],key=operator.itemgetter("score"), reverse=True) # 추천영화정보 내림차순 정렬
-            now_dict = {"member_id":users[0],"book_list":data}
-            json.dump(now_dict, f, ensure_ascii=False, indent=4)
-            #print(users[0],data)
-
-
-
-
+    # score_count_sort = sorted(user_recommend_dict.items()) # 유저번호 오름차순 정렬
+    # with open("user_rcm.json", 'w', encoding='utf-8') as f:
+    #     for users in score_count_sort: # 각 유저 추천책정보
+    #         data = sorted(users[1],key=operator.itemgetter("score"), reverse=True) # 추천책정보 내림차순 정렬
+    #         now_dict = {"member_id":users[0],"book_list":data}
+    #         json.dump(now_dict, f, ensure_ascii=False, indent=4)
 
     return R_predicted
+
+
+# book_id에 해당하는 img가져오기
+def get_image(target_member_id, R, K, start_member_id, start_book_id):
+    predicted_array = predicted_rating(R, K, start_member_id, start_book_id) # 계산된 평점 행렬
+
+    my_book_list = predicted_array[target_member_id] # 지금 유저에 해당하는 추천 책 배열 추출
+
+    my_book_list_dict = [] # 리스트안에 책정보 딕셔너리로 저장
+    for index,value in enumerate(my_book_list):
+        if (value==0.0 or value ==-1.2):continue # 만약 평점0이거나 이미 읽은 책(평점있는) 제거
+        my_book_list_dict.append({"book_id":index, "score":value})
+
+    sort_book = sorted(my_book_list_dict,key=lambda x:x["score"],reverse=True) # 리스트 중 평점 기준으로 내림차순 정렬
+
+    # book_id에 해당하는 이미지 url db에서 추출
+    for now_book in sort_book:
+        query = "select img_url from %s.Book where book_id = %d"%(schema_name,now_book["book_id"])  # 선택쿼리문 # book_id에 해당하는 img
+        cursor.execute(query) # 적용
+        now_img = cursor.fetchone()  # 1개만 가져오는옵션
+        url = now_img[0] # 원소만 추출( ,같은거 있어서 )
+        now_book["img_url"] = url # 지금 딕셔너리에 img_url추가
+
+    return sort_book
 
 
 member_set_list = set() # 중복제거된 유저 번호 보기위한 리스트
@@ -161,7 +199,8 @@ book_set_list = set() # 중복제거된 책 번호 보기위한 리스트
 
 replace_array = np.full((200,5000),np.nan) # 평점 행렬 만들기 위한 행렬 생성 임의의 크기로 잡음 실제 사용할 배열은 계산 끝나고 크기맞춰서축소
 
-member_book_list = {}
+#member_book_list = {}# 안써도 되는
+
 # 중복되지 않는 모든 개수 = set
 # 유저당 - 책 리스트 필요
 for report_data in Book_report_data:
@@ -174,12 +213,12 @@ for report_data in Book_report_data:
 
     # 한 아이디에 한 북아이디 되고 중복 한유저-북id 중복 없음
     # 유저 당 책 리스트 구하기 위한 코드 - 계산에는 필요 없음
-    try:
-        flag = member_book_list[str(report_data[1])]
-        flag.append(report_data[0]-1)
-    except KeyError:
-        member_book_list[str(report_data[1])] = []
-        member_book_list[str(report_data[1])].append(report_data[0])
+    # try:
+    #     flag = member_book_list[str(report_data[1])]
+    #     flag.append(report_data[0]-1)
+    # except KeyError:
+    #     member_book_list[str(report_data[1])] = []
+    #     member_book_list[str(report_data[1])].append(report_data[0])
 
 start_member_id = min(member_set_list) # 제일작은 회원 아이디
 end_member_id = max(member_set_list) # 제일마지막 회원 아이디
@@ -188,15 +227,16 @@ end_book_id = max(book_set_list) # 제일 마지막 책 id
 
 # 입력데이터 사이즈에 맞게 배열 변경하기
 origin_list = [] # 변경된 평점배열 만들 리스트
-for i in range(end_member_id): # 회원 수(row)만큼 반복
+
+for i in range(end_member_id+1): # 회원 수(row)만큼 반복
     now_col = list(replace_array[i][0:end_book_id]) # 지금 row 추출
     origin_list.append(now_col) # row 삽입
-
 origin_array = np.array(origin_list)# 2차원 리스트 2차원 배열로 변경
 
 R = csr_matrix(origin_array) # 입력 매트릭스 희소행렬로 변환
-R_result = predicted_rating(R, K, start_member_id, start_book_id) # 평점 계산하는 함수 // 파라미터 { 행렬, 유사도 구할려는 친구 개수, 시작 회원 id, 시작 책 id}
-df_origin = pd.DataFrame(origin_array) # 인풋되는 값으로 이루어진 평점 행렬
+
+R_result = get_image(target_member_id, R, K, start_member_id, start_book_id) # 평점 계산하는 함수 // 파라미터 { 행렬, 유사도 구할려는 친구 개수, 시작 회원 id, 시작 책 id}
+#df_origin = pd.DataFrame(origin_array) # 인풋되는 값으로 이루어진 평점 행렬
 df_result = pd.DataFrame(R_result) # 최종 계산된 평점 행렬
-df_origin.to_csv('origin.csv',encoding="utf-8") # 기본 평점 행렬 저장
+#df_origin.to_csv('origin.csv',encoding="utf-8") # 기본 평점 행렬 저장
 df_result.to_csv('result.csv',encoding="utf-8") # 계산된 평점 행렬 저장
