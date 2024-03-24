@@ -2,7 +2,7 @@ package org.example.kead.member.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.kead.member.repository.MemberRepository;
-import org.example.kead.member.repository.entity.Member;
+import org.example.kead.member.entity.Member;
 import org.springframework.stereotype.Service;
 
 @Service

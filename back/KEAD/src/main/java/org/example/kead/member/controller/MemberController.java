@@ -1,7 +1,7 @@
 package org.example.kead.member.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.kead.member.controller.dto.JoinRequest;
+import org.example.kead.member.dto.JoinRequest;
 import org.example.kead.member.service.MemberService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ public class MemberController {
     }
 
     // 회원가입
-    @PostMapping("/join")
+    @PostMapping("/users")
     public String Join(@RequestBody JoinRequest joinRequest) {
 
         Integer member_id = joinRequest.getMember_id();

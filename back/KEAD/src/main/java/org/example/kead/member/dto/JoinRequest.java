@@ -1,4 +1,4 @@
-package org.example.kead.member.controller.dto;
+package org.example.kead.member.dto;
 
 import lombok.Data;
 
