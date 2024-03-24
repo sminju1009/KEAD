@@ -1,4 +1,4 @@
-package org.example.kead.member.repository.entity;
+package org.example.kead.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

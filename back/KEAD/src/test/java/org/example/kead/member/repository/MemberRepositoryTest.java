@@ -1,6 +1,6 @@
 package org.example.kead.member.repository;
 
-import org.example.kead.member.repository.entity.Member;
+import org.example.kead.member.entity.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
