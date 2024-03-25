@@ -1,4 +1,4 @@
-FROM node:20.11.1
+FROM node:lts-alpine
 
 WORKDIR /src
 
@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
-
 CMD [ "npm", "start" ]
+
+EXPOSE 3000
