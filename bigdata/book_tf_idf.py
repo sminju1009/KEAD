@@ -74,5 +74,6 @@ for index, (doc_name,values) in enumerate(pd_to_dict.items()): # 문서 수만�
     result["TF-IDF"+str(index)] = list(values.values()) # 정의한 테이블의 중요도 행 정의
     result["word"+doc_name] = list(values.keys()) # 정의한 테이블의 단어 이름 정의
 
+
 print(result) # 결과 테이블 출력
 result.to_csv("result_tf-idf.csv",encoding="cp949") # 결과 테이블 저장
