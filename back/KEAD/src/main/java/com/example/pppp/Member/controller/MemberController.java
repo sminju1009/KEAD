@@ -32,7 +32,7 @@ public class MemberController {
         return ResponseEntity.status(200).body("회원가입성공");
     }
 
-    @PostMapping("users/login")
+    @PostMapping("/login")
     public ResponseEntity<MemberLoginResponseDto> login(@RequestBody MemberLoginRequestDto loginRequestDto) {
         String email = loginRequestDto.getEmail();
         String password = loginRequestDto.getPassword();

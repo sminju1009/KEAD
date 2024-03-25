@@ -20,6 +20,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +28,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -67,20 +70,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
-
-        http.
-                csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement((sessionManagement) ->
-                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                ) // 토큰 기반 인증이므로 세션 사용 하지않음
-                .addFilterBefore(new JwtAuthenticationFilter(authenticationManager, jwtTokenUtil, memberDetailService), UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests((authorizeRequests) ->
-                        authorizeRequests
-                                .requestMatchers("/api/v1/users/me").authenticated()       //인증이 필요한 URL과 필요하지 않은 URL에 대하여 설정
-                                .anyRequest().permitAll()
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .formLogin(Customizer.withDefaults())
+                .authorizeHttpRequests(authorizeRequest -> authorizeRequest
+                        .requestMatchers("/h2-console/**").permitAll() // H2 콘솔 접근 허용
+                        .requestMatchers("/users/**").permitAll() // '/users/**' 경로에 대한 접근 허용
+                        .anyRequest().permitAll() // 그 외 모든 요청에 대해서는 인증을 요구
                 )
-                .cors(withDefaults()); // 기본 CORS 설정 사용
+                .headers(headersConfigurer -> headersConfigurer
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin) // 프레임 옵션 설정
+                );
+
         return http.build();
     }
 
@@ -107,4 +108,3 @@ public class SecurityConfig {
     }
 
 }
-
