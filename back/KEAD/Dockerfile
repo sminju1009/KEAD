@@ -1,18 +1,10 @@
-FROM amazoncorretto:17.0.7-alpine AS builder
-USER root
-WORKDIR /back
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
-COPY src src
+FROM docker
+COPY --from=docker/buildx-bin:latest /buildx /usr/libexec/docker/cli-plugins/docker-buildx
 
-RUN chmod +x ./gradlew
-RUN ./gradlew bootJar
-
-FROM openjdk:17
-WORKDIR /back
-COPY --from=builder /back/build/libs/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
-VOLUME /tmp
+FROM openjdk:17-jdk
 EXPOSE 8082
+ARG JAR_FILE=./build/libs/*.jar
+
+COPY ${JAR_FILE} app.jar
+
+ENTRYPOINT ["java","-jar","/app.jar"]
