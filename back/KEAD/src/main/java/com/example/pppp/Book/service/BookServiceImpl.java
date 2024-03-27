@@ -1,8 +1,8 @@
-package com.example.pppp.book.service;
+package com.example.pppp.Book.service;
 
-import com.example.pppp.book.dto.response.BookResponseDto;
-import com.example.pppp.book.entity.Book;
-import com.example.pppp.book.repository.BookRepository;
+import com.example.pppp.Book.dto.response.BookResponseDto;
+import com.example.pppp.Book.entity.Book;
+import com.example.pppp.Book.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

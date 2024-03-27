@@ -1,4 +1,4 @@
-package com.example.pppp.book.entity;
+package com.example.pppp.Book.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
