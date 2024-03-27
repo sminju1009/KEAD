@@ -2,6 +2,7 @@ from docx import Document
 import pandas as pd
 import math
 
+
 docx_path1 = '동백꽃_봄봄_형태소_분석_결과_카운팅포함.docx'
 docx_path2 = '심청전_형태소_분석_결과_카운팅포함.docx'
 docx_path3 = '타임 머신 The Time Machine_형태소_분석_결과_카운팅포함.docx'
