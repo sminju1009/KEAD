@@ -1,4 +1,4 @@
-package com.example.pppp.Book.repository;
+package com.example.pppp.book.repository;
 
 import com.example.pppp.book.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
