@@ -1,4 +1,4 @@
-package com.example.pppp.Bookreport.dto.request;
+package com.example.pppp.Bookreport.dto;
 
 import com.example.pppp.Bookreport.entity.Bookreport;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자 추가
 @Getter
 @Setter
-public class BookreportAddRequestDto {
+public class AddBookreportRequest {
 
     private String reportContent;
     private LocalDate reportTime;
