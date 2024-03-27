@@ -38,4 +38,12 @@ public class BookreportController {
         return ResponseEntity.ok()
                 .body(new BookreportResponse(bookreport));
     }
+
+    @DeleteMapping("/users/{bookreportId}/bookreport")
+    public ResponseEntity<Void> deleteBookreport(@PathVariable int bookreportId) {
+        bookreportService.delete(bookreportId);
+
+        return ResponseEntity.ok()
+                .build();
+    }
 }
