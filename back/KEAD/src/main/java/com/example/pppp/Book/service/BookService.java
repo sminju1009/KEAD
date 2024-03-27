@@ -1,6 +1,6 @@
-package com.example.pppp.book.service;
+package com.example.pppp.Book.service;
 
-import com.example.pppp.book.dto.response.BookResponseDto;
+import com.example.pppp.Book.dto.response.BookResponseDto;
 
 public interface BookService {
     BookResponseDto getBookDetails(int bookId);

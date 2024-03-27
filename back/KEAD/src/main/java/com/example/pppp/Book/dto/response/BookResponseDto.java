@@ -1,4 +1,4 @@
-package com.example.pppp.book.dto.response;
+package com.example.pppp.Book.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

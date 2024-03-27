@@ -1,7 +1,7 @@
-package com.example.pppp.book.controller;
+package com.example.pppp.Book.controller;
 
-import com.example.pppp.book.dto.response.BookResponseDto;
-import com.example.pppp.book.service.BookService;
+import com.example.pppp.Book.dto.response.BookResponseDto;
+import com.example.pppp.Book.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

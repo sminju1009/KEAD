@@ -1,6 +1,6 @@
-package com.example.pppp.book.dto.request;
+package com.example.pppp.Book.dto.request;
 
-import com.example.pppp.book.entity.Book;
+import com.example.pppp.Book.entity.Book;
 import lombok.*;
 
 @Getter
