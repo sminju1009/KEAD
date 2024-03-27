@@ -27,4 +27,8 @@ public class BookreportService {
         return bookreportRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
     }
+
+    public void delete(int id) {
+        bookreportRepository.deleteById(id);
+    }
 }
