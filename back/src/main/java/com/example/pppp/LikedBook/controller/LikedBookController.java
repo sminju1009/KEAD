@@ -7,10 +7,8 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,6 +26,15 @@ public class LikedBookController {
         LikedBook savedLikedBook = likedBookService.save(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedLikedBook);
+    }
+
+    @DeleteMapping("/book/{bookId}/like")
+    public ResponseEntity<Void> removeLikedBook(@PathVariable("bookId") int bookId, HttpServletRequest httpRequest) {
+        // 사용자의 아이디를 추출하여 memberId로 설정
+        int memberId = extractMemberIdFromHeader(httpRequest);
+
+        likedBookService.deleteByBookIdAndMemberId(bookId, memberId);
+        return ResponseEntity.noContent().build();
     }
 
     // 헤더에서 사용자 아이디를 추출하는 메서드
