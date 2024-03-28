@@ -33,17 +33,17 @@ def receive_string():
 
     # MySQL 연결 설정 자신sql정보 삽입
     db_connection = mysql.connector.connect(
-        host="",
-        user="",
-        password="",
-        database=schema_name
+        host="j10c106.p.ssafy.io",
+        user="KEAD",
+        password="KEAD106",
+        database="book_test" #스키마이름
     )
 
     # 커서 생성
     cursor = db_connection.cursor()
 
     # 독후감 테이블 안의 모든 파일 목록 가져오기
-    query = "select book_id,member_id,book_member_rate from %s.Book_Report" % (schema_name)  # 선택쿼리문
+    query = "select book_id,member_id,book_member_rate from %s.book_report" % (schema_name)  # 선택쿼리문
     cursor.execute(query)
     Book_report_data = cursor.fetchall()  # 모두 가져오는옵션
 
@@ -169,7 +169,7 @@ def receive_string():
 
         # book_id에 해당하는 이미지 url db에서 추출
         for now_book in sort_book:
-            query = "select img_url from %s.Book where book_id = %d" % (
+            query = "select img_url from %s.book where book_id = %d" % (
             schema_name, now_book["book_id"])  # 선택쿼리문 # book_id에 해당하는 img
             cursor.execute(query)  # 적용
             now_img = cursor.fetchone()  # 1개만 가져오는옵션
