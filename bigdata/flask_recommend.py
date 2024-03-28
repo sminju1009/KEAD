@@ -43,7 +43,7 @@ def receive_string():
     cursor = db_connection.cursor()
 
     # 독후감 테이블 안의 모든 파일 목록 가져오기
-    query = "select book_id,member_id,book_member_rate from %s.Book_Report" % (schema_name)  # 선택쿼리문
+    query = "select book_id,member_id,book_member_rate from %s.book_report" % (schema_name)  # 선택쿼리문
     cursor.execute(query)
     Book_report_data = cursor.fetchall()  # 모두 가져오는옵션
 
