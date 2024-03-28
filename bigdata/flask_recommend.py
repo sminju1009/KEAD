@@ -33,10 +33,10 @@ def receive_string():
 
     # MySQL 연결 설정 자신sql정보 삽입
     db_connection = mysql.connector.connect(
-        host="",
-        user="",
-        password="",
-        database=schema_name
+        host="j10c106.p.ssafy.io",
+        user="KEAD",
+        password="KEAD106",
+        database="book_test" #스키마이름
     )
 
     # 커서 생성
