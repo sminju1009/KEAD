@@ -169,7 +169,7 @@ def receive_string():
 
         # book_id에 해당하는 이미지 url db에서 추출
         for now_book in sort_book:
-            query = "select img_url from %s.Book where book_id = %d" % (
+            query = "select img_url from %s.book where book_id = %d" % (
             schema_name, now_book["book_id"])  # 선택쿼리문 # book_id에 해당하는 img
             cursor.execute(query)  # 적용
             now_img = cursor.fetchone()  # 1개만 가져오는옵션
