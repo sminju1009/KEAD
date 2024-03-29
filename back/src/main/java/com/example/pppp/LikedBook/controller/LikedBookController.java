@@ -3,7 +3,6 @@ package com.example.pppp.LikedBook.controller;
 import com.example.pppp.LikedBook.dto.AddLikedBookRequest;
 import com.example.pppp.LikedBook.entity.LikedBook;
 import com.example.pppp.LikedBook.service.LikedBookService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

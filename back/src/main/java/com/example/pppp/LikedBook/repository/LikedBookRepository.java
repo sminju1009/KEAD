@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LikedBookRepository extends JpaRepository<LikedBook, Integer> {
+    // BookId와 MemberId를 이용하여 LikedBook을 삭제하는 메서드
+    void deleteByBookIdAndMemberId(int bookId, int memberId);
+
 }

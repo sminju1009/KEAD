@@ -16,4 +16,9 @@ public class LikedBookService {
 
         return likedBookRepository.save(request.toEntity());
     }
+
+    // BookId와 MemberId를 이용하여 좋아요를 삭제하는 메서드
+    public void deleteByBookIdAndMemberId(int bookId, int memberId) {
+        likedBookRepository.deleteByBookIdAndMemberId(bookId, memberId);
+    }
 }
