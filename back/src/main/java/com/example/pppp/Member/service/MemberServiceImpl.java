@@ -3,7 +3,7 @@ package com.example.pppp.Member.service;
 import com.example.pppp.Member.entity.Member;
 import com.example.pppp.Member.dto.request.MemberModifyRequestDto;
 import com.example.pppp.Member.dto.request.MemberRegisterRequestDto;
-import com.example.pppp.Member.respository.MemberRepository;
+import com.example.pppp.Member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

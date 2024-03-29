@@ -1,4 +1,4 @@
-package com.example.pppp.Member.respository;
+package com.example.pppp.Member.repository;
 
 import com.example.pppp.Member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

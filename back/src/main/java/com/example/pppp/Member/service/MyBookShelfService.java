@@ -1,8 +1,8 @@
 package com.example.pppp.Member.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import com.example.pppp.Member.respository.MybookShelfRepository;
-import com.example.pppp.Member.respository.MyBookListRepository;
+import com.example.pppp.Member.repository.MybookShelfRepository;
+import com.example.pppp.Member.repository.MyBookListRepository;
 import com.example.pppp.Member.entity.MybookShelf;
 import com.example.pppp.Member.entity.MyBookList;
 import com.example.pppp.Member.dto.response.MyBookShelfResponseDto;

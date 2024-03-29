@@ -1,11 +1,11 @@
 package com.example.pppp.Member.controller;
 
+import com.example.pppp.Member.dto.request.MybookShelfRequestDto;
 import com.example.pppp.Member.service.MyBookShelfService;
 import com.example.pppp.Member.entity.MybookShelf;
 import com.example.pppp.Member.entity.MyBookList;
 import com.example.pppp.Member.entity.WordList;
-import com.example.pppp.Member.respository.WordListRepository;
-import com.example.pppp.Member.dto.request.MybookShelfRequestDto;
+import com.example.pppp.Member.repository.WordListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-
-import java.util.HashMap;
-import java.util.Map;
 @RestController
 @RequestMapping("/users")
 public class MyBookController {

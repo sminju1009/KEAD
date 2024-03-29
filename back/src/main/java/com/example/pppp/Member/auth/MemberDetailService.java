@@ -2,9 +2,8 @@ package com.example.pppp.Member.auth;
 
 
 import com.example.pppp.Member.entity.Member;
-import com.example.pppp.Member.respository.MemberRepository;
+import com.example.pppp.Member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
