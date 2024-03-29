@@ -1,0 +1,52 @@
+#app {
+    height: 100%;
+  }
+  html,
+  body {
+    position: relative;
+    height: 100%;
+  }
+  
+  body {
+    background: #eee;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    width: auto;
+    height: auto; 
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .bookPick {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .bookImage {
+    width: 150px; /* 이미지 너비 설정, 필요에 따라 조정 */
+    border-radius: 10px; /* 모서리 둥근 정도를 설정 */
+    object-fit: cover; /* 이미지 비율 유지 */
+  }
