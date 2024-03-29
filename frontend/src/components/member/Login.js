@@ -33,7 +33,9 @@ function Login() {
         const response = await axios.post('http://localhost:8080/users/login', loginData);
         console.log(response)
         if (response.data.statusCode == 200) {
-          login(); // 로그인 상태 업데이트
+          const userInfo = response.data.nickname;
+          console.log('유저정보',userInfo) // 사용자정보추출~
+          login(userInfo); // 로그인 상태 업데이트
           navigate('/'); // 메인 페이지로 리다이렉트
         } else {
           // 로그인 실패 처리
