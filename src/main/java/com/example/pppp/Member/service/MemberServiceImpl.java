@@ -40,8 +40,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member getMemberByEmail(String email) {
-        Member member = memberRepository.findMemberByEmail(email);
-        return member;
+        Optional<Member> member = memberRepository.findMemberByEmail(email);
+        return member.get();
     }
 
     @Override
@@ -54,7 +54,17 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
         return member;
     }
+    @Override
+    public Boolean checkEmailDuplicate(String email) {
+        return memberRepository.existsByEmail(email);
+    }
 
+    @Override
+    public Boolean checkNicknameDuplicate(String nickname) {
+        return memberRepository.existsByNickname(nickname);
+    }
+
+    @Override
     public Member save(Member member) {
         return memberRepository.save(member);
     }

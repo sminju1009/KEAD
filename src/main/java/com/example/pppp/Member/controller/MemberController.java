@@ -97,4 +97,16 @@ public class MemberController {
         // 응답 반환
         return ResponseEntity.ok(responseDto);
     }
+
+    @GetMapping("/email/{email}/check")
+    public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email) {
+        return ResponseEntity.ok(memberService.checkEmailDuplicate(email));
+    }
+
+    @GetMapping("/nickname/{nickname}/check")
+    public ResponseEntity<Boolean> checkNicknameDuplicate(@PathVariable String nickname) {
+        return ResponseEntity.ok(memberService.checkNicknameDuplicate(nickname));
+    }
+
+
 }

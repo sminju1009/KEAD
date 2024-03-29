@@ -41,6 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (servletPath.equals("/members/login") || servletPath.equals("/members/refresh-token")) {
             filterChain.doFilter(request, response);
+            return;
         } else {
             String token = header.substring(7);
             if (jwtUtil.validateToken(token)) {
@@ -54,6 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(jwtAuthentication);
                 }
             }
+
         }
         filterChain.doFilter(request, response);
     }

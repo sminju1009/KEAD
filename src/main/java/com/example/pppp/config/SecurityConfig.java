@@ -74,7 +74,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/h2-console/**", "/users/login", "/users/signup").permitAll()
+                        .requestMatchers("/h2-console/**", "/users/login", "/users/signup","/users/email/**","/users/nickname/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(authenticationManager, jwtTokenUtil, memberDetailService), UsernamePasswordAuthenticationFilter.class)
@@ -92,7 +92,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "https://c210-67728.web.app")
+                        .allowedOrigins("http://localhost:5173","http://localhost:8081", "http://localhost:5174", "http://localhost:5175", "https://c210-67728.web.app")
                         .allowedMethods("OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
                         .allowedHeaders("*")
                         .exposedHeaders(JwtTokenUtil.HEADER_STRING)

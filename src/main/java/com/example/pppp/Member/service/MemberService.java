@@ -15,6 +15,10 @@ public interface MemberService {
 
     Member modifyMember(MemberModifyRequestDto requestDto);
 
+    Boolean checkEmailDuplicate(String email);
+
+    Boolean checkNicknameDuplicate(String nickname);
+
     Member save(Member member);
 
 }
