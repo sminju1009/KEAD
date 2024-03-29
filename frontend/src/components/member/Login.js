@@ -32,7 +32,7 @@ function Login() {
         // console.log('fghfgf/',loginData)
         const response = await axios.post('http://localhost:8080/users/login', loginData);
         console.log(response)
-        if (response.data.statusCode == 200) {
+        if (response.data.statusCode === 200) {
           login(); // 로그인 상태 업데이트
           navigate('/'); // 메인 페이지로 리다이렉트
         } else {
