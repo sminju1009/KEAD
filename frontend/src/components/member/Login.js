@@ -34,7 +34,11 @@ function Login() {
         console.log(response)
         if (response.data.statusCode == 200) {
           const userInfo = response.data.nickname;
-          console.log('유저정보',userInfo) // 사용자정보추출~
+          const token = response.data.token; // 응답에서 토큰 추출
+          console.log('유저정보', userInfo) // 사용자정보추출~
+          
+          localStorage.setItem('jwtToken', token);
+         
           login(userInfo); // 로그인 상태 업데이트
           navigate('/'); // 메인 페이지로 리다이렉트
         } else {
