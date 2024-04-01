@@ -1,69 +1,130 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import axios from 'axios';
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 
 import './carouselstyles.css';
+import './LowerGradesBookPick.css';
 
-import { FreeMode, Pagination } from 'swiper/modules';
+
+import { FreeMode } from 'swiper/modules';
 
 function LowerGradesBookPick() {
+
+  const [bookData, setBookData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBookData = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken');
+        const response = await axios.get('http://localhost:8082/users/me', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+  
+        const response2 = await axios.get(`http://localhost:8082/users/${response.data.memberId}/mybookshelf`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+  
+        setBookData(response2.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching book data:', error);
+        setLoading(false);
+      }
+    };
+  
+    fetchBookData();
+  }, []);
+
   const navigate = useNavigate();
 
-  const goToDetailPage = () => {
-    navigate('/book-detail'); // 상세 페이지 경로
+  const goToDetailPage = (bookId) => {
+    navigate(`/book-detail/${bookId}`);
   };
 
   return (
     <div className='bookPick'>
       <h3>1,2학년 추천도서</h3>
-       <>
-      <Swiper
-        slidesPerView={3.3}
-        spaceBetween={10}
-        freeMode={true}
-        
-        modules={[FreeMode]}
-        className="mySwiper"
-      >
-        <SwiperSlide><img 
-        className="bookImage"
-        alt="iPhone_01" 
-        src="img/아리스토텔레스.jpg" 
-        onClick={goToDetailPage}
-  
-        /></SwiperSlide>
-        <SwiperSlide><img 
-        className="bookImage"
-        alt="iPhone_01" 
-        src="img/아리스토텔레스.jpg" 
-        onClick={goToDetailPage}
-        
-        /></SwiperSlide>
-        <SwiperSlide><img 
-        className="bookImage"
-        alt="iPhone_01" 
-        src="img/아리스토텔레스.jpg" 
-        onClick={goToDetailPage}
-  
-        /></SwiperSlide>
-        <SwiperSlide><img 
-        className="bookImage"
-        alt="iPhone_01" 
-        src="img/플라톤.jpg" 
-        onClick={goToDetailPage}
-  
-        /></SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
-      </Swiper>
-    </>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <Swiper
+          slidesPerView={3.3}
+          spaceBetween={10}
+          freeMode={true}
+          modules={[FreeMode]}
+          className="mySwiper"
+        >
+          {bookData.slice(100, 120).map((book) => ( // 예시로 5번째부터 10번째까지의 요소를 추출
+            <SwiperSlide key={book.bookId}>
+              <img
+                className="bookImage"
+                alt={`Book ${book.bookId}`}
+                src={book.imgUrl}
+                onClick={() => goToDetailPage(book.bookId)} // 클릭 시 bookId를 인자로 전달
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
+
+<h3>3,4학년 추천도서</h3>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <Swiper
+          slidesPerView={3.3}
+          spaceBetween={10}
+          freeMode={true}
+          modules={[FreeMode]}
+          className="mySwiper"
+        >
+          {bookData.slice(40, 60).map((book) => ( // 예시로 5번째부터 10번째까지의 요소를 추출
+            <SwiperSlide key={book.bookId}>
+              <img
+                className="bookImage"
+                alt={`Book ${book.bookId}`}
+                src={book.imgUrl}
+                onClick={() => goToDetailPage(book.bookId)} // 클릭 시 bookId를 인자로 전달
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
+
+
+<h3>5,6학년 추천도서</h3>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <Swiper
+          slidesPerView={3.3}
+          spaceBetween={10}
+          freeMode={true}
+          modules={[FreeMode]}
+          className="mySwiper"
+        >
+          {bookData.slice(65, 85).map((book) => ( // 예시로 5번째부터 10번째까지의 요소를 추출
+            <SwiperSlide key={book.bookId}>
+              <img
+                className="bookImage"
+                alt={`Book ${book.bookId}`}
+                src={book.imgUrl}
+                onClick={() => goToDetailPage(book.bookId)} // 클릭 시 bookId를 인자로 전달
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </div>
   );
 }

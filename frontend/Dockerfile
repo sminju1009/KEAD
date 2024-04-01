@@ -1,17 +1,16 @@
 FROM node:20.11-alpine
 
-WORKDIR /src
+RUN mkdir /app
 
-COPY package.json .
+WORKDIR /app
 
-RUN npm --version
+COPY package.json /app/
 
-RUN npm update
+RUN npm install --silent
+RUN npm install react-scripts@3.4.1 -g --silent
 
-RUN npm install
-
-COPY . .
-
-CMD [ "npm", "start" ]
+COPY . /app/
+RUN npm run build
 
 EXPOSE 3000
+CMD ["npm", "start"]
