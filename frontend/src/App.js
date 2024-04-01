@@ -10,6 +10,7 @@ import Navbar from "./components/navbar/Navbar";
 import Mypage from "./components/mypage/Mypage";
 import BookPrefer from "./components/book/BookPrefer";
 import BookShelf from "./components/book/BookShelf";
+import InsertBookReport from "./components/book/InsertBookReport";
 import BookShelfDetail from "./components/book/BookShelfDetail";
 import MyRank from "./components/rank/Rank";
 import Profile from "./components/mypage/Profile";
@@ -52,10 +53,8 @@ function App() {
               <Route path="/book-detail/:bookId" element={<BookDetail />} />
               <Route path="/mypage" element={<Mypage />} />
               <Route path="/mybook-shelf" element={<BookShelf />} />
-              <Route
-                path="/mybook-shelf/:detail"
-                element={<BookShelfDetail />}
-              />
+              <Route path="/mybook-shelf/:detail" element={<BookShelfDetail />}/>
+              <Route path="/insert_book_report/:detail" element={<InsertBookReport />}/>
               <Route path="/mybook-prefer" element={<BookPrefer />} />
               <Route path="/" element={<App />} />
               <Route path="/rank" element={<MyRank />} />
