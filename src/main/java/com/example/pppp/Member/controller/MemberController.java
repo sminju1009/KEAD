@@ -97,4 +97,24 @@ public class MemberController {
         // 응답 반환
         return ResponseEntity.ok(responseDto);
     }
+
+    @GetMapping("/email/{email}/check")
+    public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email) {
+        return ResponseEntity.ok(memberService.checkEmailDuplicate(email));
+    }
+
+    @GetMapping("/nickname/{nickname}/check")
+    public ResponseEntity<Boolean> checkNicknameDuplicate(@PathVariable String nickname) {
+        return ResponseEntity.ok(memberService.checkNicknameDuplicate(nickname));
+    }
+
+    //로그인한 회원 본인의 정보를 조회
+    //마이페이지
+    @GetMapping("/me")
+    public ResponseEntity<MemberResponseDto> getUserInfo() {
+        Member member = memberLoader.getMember();
+        return ResponseEntity.status(200).body(MemberResponseDto.of(member));
+    }
+
+
 }
