@@ -13,7 +13,7 @@ function BookShelf() {
       const fetchUserInfo = async () => {
         try {
           const token = localStorage.getItem('jwtToken');
-          const response = await axios.get('http://localhost:8080/users/me', {
+          const response = await axios.get('http://localhost:8082/users/me', {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -23,7 +23,7 @@ function BookShelf() {
           memberIdRef.current = response.data.memberId; // memberIdRef에 값 설정
           console.log(memberIdRef.current);
   
-          const response2 = await axios.get(`http://localhost:8080/users/${response.data.memberId}/mybookshelf/${detail}`, {
+          const response2 = await axios.get(`http://localhost:8082/users/${response.data.memberId}/mybookshelf/${detail}`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -45,7 +45,7 @@ function BookShelf() {
     const handleDelete = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        await axios.delete(`http://localhost:8080/users/${memberIdRef.current}/mybookshelf/${detail}`, { // memberIdRef.current를 사용
+        await axios.delete(`http://localhost:8082/users/${memberIdRef.current}/mybookshelf/${detail}`, { // memberIdRef.current를 사용
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -76,11 +76,11 @@ function BookShelf() {
           <img
             className="bookShelfImage"
             alt=""
-            src="img/bookshelf.jpg"
+            src={bookData[1].imgUrl}
             style={{
               display: 'block',
-              width: 'calc(100% - 20px)',
-              marginLeft: '10px',
+              width: 'calc(30% + 10px)',
+              marginLeft: '150px',
               marginRight: '10px',
               height: 'auto',
               borderRadius: '20px',
@@ -88,13 +88,13 @@ function BookShelf() {
             }}
           />
           {/* 두 번째 이미지 */}
-          <h2>책 이름: {bookData[1].bookName}</h2>
+          {/* <h2>책 이름: {bookData[1].bookName}</h2>
           <h2>작가 : {bookData[1].author}</h2>
-          <h2>평점 : {bookData[1].score}</h2>
+          <h2>평점 : {bookData[1].score}</h2> */}
 
           <h1>독후감</h1>
           <h2>{reportContent}</h2>
-          <h2>작성일자 : {reportTime}</h2>
+          {/* <h2>작성일자 : {reportTime}</h2> */}
 
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             {/* 뒤로가기 버튼 */}
