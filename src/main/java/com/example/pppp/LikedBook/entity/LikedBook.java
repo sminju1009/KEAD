@@ -14,7 +14,7 @@ public class LikedBook {
 
     @Id //id 필드를 기본키로 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본키를 자동으로 1씩 증가
-    @Column(name = "read_book_id", updatable = false)
+    @Column(name = "book_like_id", updatable = false)
     private int bookLikeId;
 
     @Column(name = "book_id", nullable = false)
