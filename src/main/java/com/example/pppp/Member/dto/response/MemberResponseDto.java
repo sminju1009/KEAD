@@ -9,6 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class MemberResponseDto {
+    private int memberId;
+
     private String nickname;
 
     private String password;
@@ -23,6 +25,7 @@ public class MemberResponseDto {
 
     public static MemberResponseDto of (Member member) {
         MemberResponseDto res = new MemberResponseDto();
+        res.setMemberId(member.getMemberId());
         res.setNickname(member.getNickname());
         res.setPassword(member.getPassword());
         res.setEmail(member.getEmail());

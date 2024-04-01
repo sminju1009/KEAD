@@ -12,6 +12,7 @@ import com.example.pppp.Member.entity.Member;
 import com.example.pppp.Member.service.MemberService;
 import com.example.pppp.Member.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 @Log4j2
+@ToString
 public class MemberController {
     private final MemberService memberService;
     private final JwtTokenUtil jwtTokenUtil;
@@ -36,7 +38,7 @@ public class MemberController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> register(@RequestBody MemberRegisterRequestDto registerRequestDto) {
-        log.info(registerRequestDto);
+        log.info("회원가입 받은정보: {}", registerRequestDto.getMemberGrade());
         memberService.register(registerRequestDto);
 
         return ResponseEntity.status(200).body("회원가입성공");
