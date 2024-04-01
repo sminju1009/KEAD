@@ -18,6 +18,7 @@ function BookShelf() {
         });
   
         setUserInfo(response.data);
+ 
         //console.log(response.data)
         // 두 번째 요청 시작
         const response2 = await axios.get(`http://localhost:8082/users/${response.data.memberId}/mybookshelf`, {
