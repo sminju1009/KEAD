@@ -1,12 +1,10 @@
 FROM node:20.11-alpine
 
-WORKDIR /src
+WORKDIR /app
 
 COPY package*.json .
 
 RUN npm install -g npm@latest
-
-RUN npm install react-scripts
 
 COPY . .
 
