@@ -1,16 +1,26 @@
-FROM node:20.11-alpine
+# nginx 이미지 사용
+FROM nginx:latest
 
+# root에 /app 폴더 생성
 RUN mkdir /app
 
+# work dir 고정
 WORKDIR /app
 
-COPY package.json /app/
+# work dir에 build 폴더 생성
+RUN mkdir ./build
 
-RUN npm install -g npm@latest
-RUN npm install react-scripts@3.4.1
+# host pc의 현재 경로의 build 폴더를 work dir의 build 폴더로 복사
+ADD ./build ./build
 
-COPY . /app/
-RUN npm run build
+# nginx의 default.conf 삭제
+RUN rm /etc/nginx/conf.d/default.conf
 
-EXPOSE 3000
-CMD ["npm", "start"]
+# host pc의 nginx.conf를 아래 경로에 복사
+COPY ./nginx.conf /etc/nginx/conf.d
+
+# 80 포트 개방
+EXPOSE 80
+
+# container 실행 시 자동으로 실행할 command. nginx 시작함
+CMD ["nginx", "-g", "daemon off;"]
