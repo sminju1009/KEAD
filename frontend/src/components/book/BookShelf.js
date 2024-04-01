@@ -11,16 +11,17 @@ function BookShelf() {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem('jwtToken'); // 로컬 스토리지에서 JWT 토큰 가져오기
-        const response = await axios.get('http://localhost:8080/users/me', {
+        const response = await axios.get('http://localhost:8082/users/me', {
           headers: {
             Authorization: `Bearer ${token}` // 요청 헤더에 토큰 포함
           }
         });
   
         setUserInfo(response.data);
+ 
         //console.log(response.data)
         // 두 번째 요청 시작
-        const response2 = await axios.get(`http://localhost:8080/users/${response.data.memberId}/mybookshelf`, {
+        const response2 = await axios.get(`http://localhost:8082/users/${response.data.memberId}/mybookshelf`, {
           headers: {
             Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
           }

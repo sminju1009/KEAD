@@ -1,6 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // React Router의 Link 컴포넌트 추가
+import axios from 'axios';
+
 
 function BookPrefer() {
+  const [bookData, setBookData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState({ nickname: '' });
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken'); // 로컬 스토리지에서 JWT 토큰 가져오기
+        const response = await axios.get('http://localhost:8082/users/me', {
+          headers: {
+            Authorization: `Bearer ${token}` // 요청 헤더에 토큰 포함
+          }
+        });
+  
+        setUserInfo(response.data);
+        console.log(response.data)
+
+        // 두 번째 요청 시작
+        const response2 = await axios.get(`http://localhost:8082/users/${response.data.memberId}/likes`, {
+          headers: {
+            Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
+          }
+        });
+  
+        // 서버로부터 받은 데이터를 상태에 설정합니다.
+        setBookData(response2.data);
+        console.log(response2.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching user info or book data:', error);
+        setLoading(false);
+      }
+    };
+  
+    fetchUserInfo();
+  }, []);
+
+
   return (
     <div>
       <h2 className="pageTitle">
@@ -10,7 +51,7 @@ function BookPrefer() {
         <span style={{ color: '#6884F6' }}>D</span>
       </h2>
       <div className='background-orange rank-box'>
-        호날두님의 KEAD
+      {userInfo.nickname}님의 KEAD
       </div>
       <div className="image-grid">
         <div className="image-container">
