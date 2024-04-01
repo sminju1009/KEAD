@@ -1,12 +1,14 @@
-FROM node:20-alpine
+FROM node:lts-alpine
 
-WORKDIR /app
+WORKDIR /src
 
-COPY package.json package-lock.json ./
+COPY package*.json .
 
-RUN npm install 
+RUN npm cache clean -f
 
-COPY ./ ./
+RUN npm install --save
+
+COPY . .
 
 CMD [ "npm", "start" ]
 
