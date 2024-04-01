@@ -1,25 +1,33 @@
+
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function BookDetail() {
-  const { bookId } = useParams();
-  const [book, setBook] = useState(null);
+  const [book, setBook] = useState([]);
 
   useEffect(() => {
-    const fetchBookDetail = async () => {
+    const getBook = async () => {
       try {
+        const token = localStorage.getItem("jwtToken");
+        const bookId = window.location.pathname.split("/").pop();
         const response = await axios.get(
-          `http://localhost:8081/book/${bookId}`
+          `http://localhost:8082/book/${bookId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setBook(response.data);
+        console.log(response.data);
       } catch (error) {
-        console.error("책 정보를 가져올 수 없습니다: ", error);
+        console.error("Catch Error", error);
       }
     };
 
-    fetchBookDetail();
-  }, [bookId]);
+    getBook();
+  }, []);
 
   if (!book) {
     return <div>Loading...</div>;
