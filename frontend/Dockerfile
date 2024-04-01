@@ -1,12 +1,14 @@
-FROM node:lts-alpine
+FROM node:20.11-alpine
 
 WORKDIR /src
 
-COPY package*.json .
+COPY package.json .
 
-RUN npm cache clean -f
+RUN npm --version
 
-RUN npm install --save
+RUN npm update
+
+RUN npm install
 
 COPY . .
 
