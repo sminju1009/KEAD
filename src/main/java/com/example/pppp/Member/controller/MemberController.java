@@ -111,5 +111,12 @@ public class MemberController {
         return ResponseEntity.ok(memberService.checkNicknameDuplicate(nickname));
     }
 
+    //로그인한 회원 본인의 정보를 조회
+    //마이페이지
+    @GetMapping("/me")
+    public ResponseEntity<MemberResponseDto> getUserInfo() {
+        Member member = memberLoader.getMember();
+        return ResponseEntity.status(200).body(MemberResponseDto.of(member));
+    }
 
 }
