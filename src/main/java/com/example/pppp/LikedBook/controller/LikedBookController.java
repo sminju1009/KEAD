@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -36,7 +38,11 @@ public class LikedBookController {
         likedBookService.deleteByBookIdAndMemberId(bookId, memberId);
         return ResponseEntity.noContent().build();
     }
-
+    @GetMapping("/users/{userId}/likes")
+    public ResponseEntity<List<LikedBook>> getLikedBooks(@PathVariable("userId") int userId) {
+        List<LikedBook> likedBooks = likedBookService.getLikedBooksByUserId(userId);
+        return ResponseEntity.ok(likedBooks);
+    }
     // 헤더에서 사용자 아이디를 추출하는 메서드
     private int extractMemberIdFromHeader(HttpServletRequest request) {
         // 여기에 실제 로직을 구현하녀 헤더에서 사용자 아이드를 추출하는 코드를 작성합니다.
