@@ -40,6 +40,11 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+
+
+    //implementation 'mysql:mysql-connector-java:8.0.26'
+
 }
 
 tasks.named('test') {

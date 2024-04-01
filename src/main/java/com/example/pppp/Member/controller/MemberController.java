@@ -21,6 +21,9 @@ import com.example.pppp.Member.common.MemberLoader;
 import java.security.Principal;
 import java.time.LocalDate;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -115,6 +118,5 @@ public class MemberController {
         Member member = memberLoader.getMember();
         return ResponseEntity.status(200).body(MemberResponseDto.of(member));
     }
-
 
 }
