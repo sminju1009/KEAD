@@ -22,13 +22,13 @@ function LowerGradesBookPick() {
     const fetchBookData = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await axios.get('http://j10c106.p.ssafy.io:8082/users/me', {
+        const response = await axios.get('https://j10c106.p.ssafy.io:8082/users/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
   
-        const response2 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/mybookshelf`, {
+        const response2 = await axios.get(`https://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/mybookshelf`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

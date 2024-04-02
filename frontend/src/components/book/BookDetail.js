@@ -13,7 +13,7 @@ function BookDetail() {
         const token = localStorage.getItem("jwtToken");
         const bookId = window.location.pathname.split("/").pop();
         const response = await axios.get(
-          `http://j10c106.p.ssafy.io:8082/book/${bookId}`,
+          `https://j10c106.p.ssafy.io:8082/book/${bookId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
