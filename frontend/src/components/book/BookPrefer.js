@@ -31,7 +31,29 @@ function BookPrefer() {
         // 서버로부터 받은 데이터를 상태에 설정합니다.
         setBookData(response2.data);
         console.log(response2.data);
+
+        const bookIds = response2.data.map(item => item.bookId); // bookId만 추출하여 배열 생성
+        console.log(bookIds)
+
+        // 각 bookId에 대해 요청을 보내고 결과를 배열로 저장
+        const bookResponses = await Promise.all(bookIds.map(bookId =>
+          axios.get(`http://localhost:8082/book/${bookId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+        ));
+
+        // 각 response에서 data를 추출하여 배열로 만듦
+        const booksData = bookResponses.map(response => ({
+          imgUrl: response.data.imgUrl,
+          bookId: response.data.bookId
+        }));
+        console.log(booksData)
+        // 상태에 설정
+        setBookData(booksData);
         setLoading(false);
+        console.log()
       } catch (error) {
         console.error('Error fetching user info or book data:', error);
         setLoading(false);
@@ -51,52 +73,23 @@ function BookPrefer() {
         <span style={{ color: '#6884F6' }}>D</span>
       </h2>
       <div className='background-orange rank-box'>
-      {userInfo.nickname}님의 KEAD
+        {userInfo.nickname}님의 KEAD
       </div>
       <div className="image-grid">
-        <div className="image-container">
-          <img src="img/reading_king.png" alt="reading_king" />
-          
-        </div>
-        <div className="image-container">
-          <img src="img/quiz_king.png" alt="quiz_king" />
-          
-        </div>
-        <div className="image-container">
-          <img src="img/genre_king.png" alt="genre_king" />
-          
-        </div>
-        <div className="image-container">
-          <img src="img/bookreview_king.png" alt="bookreview_king" />
-          
-        </div>
-        <div className="image-container">
-          <img src="img/collection_king.png" alt="collection_king" />
-          
-        </div>
-        <div className="image-container">
-          <img src="img/like_king.png" alt="like_king" />
-          
-        </div>
-        <div className="image-container">
-          <img src="img/like_king.png" alt="like_king" />
-          
-        </div>
-        <div className="image-container">
-          <img src="img/like_king.png" alt="like_king" />
-          
-        </div>
-        <div className="image-container">
-          <img src="img/like_king.png" alt="like_king" />
-          
-        </div>
-        <div className="image-container">
-          <img src="img/like_king.png" alt="like_king" />
-          
-        </div>
-        <div className="image-container">
-          <img src="img/like_king.png" alt="like_king" />
-          
+        <div>
+          {bookData && bookData.map((item, index) => (
+            <Link
+              to={{
+                pathname: `/book-detail/${item.bookId}`
+              }}
+              key={item.bookId}
+            >
+              <img
+                src={item.imgUrl}
+                alt=""
+              />
+            </Link>
+          ))}
         </div>
       </div>
     </div>

@@ -54,7 +54,7 @@
   .image-grid img {
     width: 90px; /* 그리드 셀에 맞게 이미지 크기 조절 */
     height: auto; /* 이미지 원본 비율 유지 */
-    border-radius: 50%; /* 이미지를 동그랗게 만듦 */
+ 
     object-fit: cover; /* 이미지가 그리드 셀을 꽉 채우도록 조절 */
     margin-left: 3px;
   }
