@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://j10c106.p.ssafy.io:3000")
 
 @RequiredArgsConstructor
 @RestController

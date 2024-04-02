@@ -29,7 +29,7 @@ public class MyBookController {
     private final MyBookShelfService myBookShelfService;
     private final WordListRepository wordListRepository;
 
-    private static final String FLASK_SERVER_URL = "http://localhost:5000"; // 플라스크 서버의 주소로 변경해주세요.
+    private static final String FLASK_SERVER_URL = "http://j10c106.p.ssafy.io:5000"; // 플라스크 서버의 주소로 변경해주세요.
     private String savedValue; // 저장할 변수 선언
 
     @Autowired
