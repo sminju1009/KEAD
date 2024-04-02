@@ -6,19 +6,19 @@ function BookShelf() {
   const [bookData, setBookData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState({ nickname: '' });
-
+  
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const token = localStorage.getItem('jwtToken'); // 로컬 스토리지에서 JWT 토큰 가져오기
-        const response = await axios.get('https://j10c106.p.ssafy.io:8082/users/me', {
+        const token = localStorage.getItem('jwtToken');
+        const response = await axios.get('http://j10c106.p.ssafy.io:8082/users/me', {
           headers: {
-            Authorization: `Bearer ${token}` // 요청 헤더에 토큰 포함
+            Authorization: `Bearer ${token}`
           }
         });
-  
+
         setUserInfo(response.data);
- 
+
         //console.log(response.data)
         // 두 번째 요청 시작
         const response2 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/mybookshelf`, {
@@ -45,7 +45,7 @@ function BookShelf() {
 
   return (
     <div style={{ position: 'relative' }}>
-      <h2>나의책장 상세 정보</h2>
+      <h2>{userInfo.nickname}의 책장</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (

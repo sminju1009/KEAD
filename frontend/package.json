@@ -23,7 +23,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+<<<<<<< HEAD
   "proxy": "http://j10c106.p.ssafy.io:8082",
+=======
+>>>>>>> 55337cde4b83aea68634a479cf2969d0b20503f6
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -65,7 +65,7 @@ function BookShelf() {
 
   return (
     <div style={{ position: 'relative' }}>
-      <h2>나의책장 상세 정보</h2>
+      <h2>{userInfo.nickname}나의책장 상세 정보</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (

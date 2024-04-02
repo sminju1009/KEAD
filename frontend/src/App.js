@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import BookRecommendation from "./components/main/BookRecommendation";
+import BookRecommList from "./components/main/BookRecommList";
 import DailyQuote from "./components/main/DailyQuote";
 import LowerGradesBookPick from "./components/main/LowerGradesBookPick";
 import BookDetail from "./components/book/BookDetail";
@@ -51,6 +52,7 @@ function App() {
           {isAuthenticated ? (
             <>
               <Route path="/book-detail/:bookId" element={<BookDetail />} />
+              <Route path="/book_recomm" element={<BookRecommList />} />
               <Route path="/mypage" element={<Mypage />} />
               <Route path="/mybook-shelf" element={<BookShelf />} />
               <Route path="/mybook-shelf/:detail" element={<BookShelfDetail />}/>
