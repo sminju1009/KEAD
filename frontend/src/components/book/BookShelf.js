@@ -29,7 +29,7 @@ function BookShelf() {
   
         // 서버로부터 받은 데이터를 상태에 설정합니다.
         setBookData(response2.data);
-        console.log(response2.data);
+        //console.log(response2.data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user info or book data:', error);

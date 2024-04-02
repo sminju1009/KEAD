@@ -13,7 +13,7 @@ function BookShelf() {
 //console.log(detail),"agewahehra";
 
   useEffect(() => {
-    console.log(detail)
+    //console.log(detail)
     const fetchBookData = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
@@ -47,14 +47,19 @@ function BookShelf() {
   const handleInsert = async () => {
     try {
       const bookimf = bookIdRef.current;
+
+      //console.log(bookimf)
+      //console.log(reportContent)
+
       const token = localStorage.getItem('jwtToken');
-      await axios.post(`http://localhost:8082/mybookshelf`, {
+      
+      await axios.post(`http://localhost:8082/users/mybookshelf`, {
         memberId: memberIdRef.current,
         bookId: bookimf.bookId,
         Isbn: bookimf.isbn,
-        content: reportContent,
-        ReportTime: "2024-04-02",
-        BookMemberRate : 1
+        reportContent: reportContent,
+        reportTime: "2024-04-02",
+        bookMemberRate : 1
       }, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -62,7 +67,7 @@ function BookShelf() {
       });
       
 
-      window.location.href = '/';
+      //window.location.href = '/';
     } catch (error) {
       console.error('Error inserting report:', error);
     }

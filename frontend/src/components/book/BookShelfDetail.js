@@ -44,32 +44,18 @@ function BookShelf() {
   
     const handleDelete = async () => {
       try {
-        const token = localStorage.getItem('jwtToken'); // 로컬 스토리지에서 JWT 토큰 가져오기
-        const response = await axios.get('http://localhost:8082/users/me', {
+        const token = localStorage.getItem('jwtToken');
+        await axios.delete(`http://localhost:8082/users/${memberIdRef.current}/mybookshelf/${detail}`, { // memberIdRef.current를 사용
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-
-        setUserInfo(response.data);
-
-        const response2 = await axios.get(`http://localhost:8082
-        /users/${response.data.memberId}/mybookshelf/${detail}`, {
-          headers: {
-            Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
-          }
-        });
-
-        setBookData(response2.data);
-        console.log(response2.data);
-
-        setLoading(false);
+        window.location.href = '/mybook-shelf';
+        // 삭제 후 필요한 작업 수행 (예: 페이지 리다이렉션)
       } catch (error) {
-        console.error('Error fetching user info or book data:', error);
-        setLoading(false);
+        console.error('Error deleting book:', error);
       }
     };
-  
     // 나머지 코드는 동일하게 유지
   
 

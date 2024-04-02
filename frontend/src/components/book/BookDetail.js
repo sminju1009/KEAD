@@ -22,7 +22,7 @@ function BookDetail() {
         );
         setBook(response.data);
         setBookId(bookId); // 책의 ID 설정
-        console.log(response.data);
+        //console.log(response.data);
       } catch (error) {
         console.error("Catch Error", error);
       }
@@ -36,7 +36,7 @@ function BookDetail() {
   };
 
   const handleWriteReview = () => {
-    console.log("독후감 작성 버튼 클릭");
+    //console.log("독후감 작성 버튼 클릭");
     if (bookId) {
       window.location.href = `/insert_book_report/${bookId}`; // 책의 ID를 동적으로 전달
     }
