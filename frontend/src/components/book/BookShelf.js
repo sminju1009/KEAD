@@ -21,7 +21,7 @@ function BookShelf() {
  
         //console.log(response.data)
         // 두 번째 요청 시작
-        const response2 = await axios.get(`https://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/mybookshelf`, {
+        const response2 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/mybookshelf`, {
           headers: {
             Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
           }
