@@ -18,7 +18,7 @@ function Profile() {
     try {
       const token = localStorage.getItem('jwtToken'); // 로컬 스토리지에서 JWT 토큰 가져오기
       // console.log(token) 토큰있음
-      const response = await axios.get('http://localhost:8080/users/me', {
+      const response = await axios.get('http://j10c106.p.ssafy.io:8082/users/me', {
         headers: {
           Authorization: `Bearer ${token}` // 요청 헤더에 토큰 포함
         }
@@ -41,7 +41,7 @@ function Profile() {
       const token = localStorage.getItem('jwtToken');
 
       // Axios 요청 시 헤더에 토큰 포함
-      const response = await axios.get(`http://localhost:8080/users/nickname/${nickname}/check`, {
+      const response = await axios.get(`http://j10c106.p.ssafy.io:8082/users/nickname/${nickname}/check`, {
         headers: {
           Authorization: `Bearer ${token}` // 헤더에 토큰 추가
         }
@@ -71,7 +71,7 @@ function Profile() {
       console.log('비밀번호:', password)
       console.log("유저 Id:", userInfo.memberId)
       const memberId = userInfo.memberId
-      const response = await axios.post(`http://localhost:8080/users/${memberId}/reset`, requestBody, {
+      const response = await axios.post(`http://j10c106.p.ssafy.io:8082/users/${memberId}/reset`, requestBody, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

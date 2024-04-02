@@ -17,7 +17,7 @@ function BookDetail() {
         const token = localStorage.getItem("jwtToken");
         const bookId = window.location.pathname.split("/").pop();
         const response = await axios.get(
-          `http://localhost:8082/book/${bookId}`,
+          `http://j10c106.p.ssafy.io:8082/book/${bookId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ function BookDetail() {
         setBook(response.data);
         setBookId(bookId);
 
-        const response2 = await axios.get('http://localhost:8082/users/me', {
+        const response2 = await axios.get('http://j10c106.p.ssafy.io:8082/users/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -38,7 +38,7 @@ function BookDetail() {
         const memberId = response2.data.memberId; // memberId 추출
         // X-UserId 헤더에 memberId 추가하여 요청 보내기
         const response3 = await axios.get(
-          `http://localhost:8082/book/${bookId}`,
+          `http://j10c106.p.ssafy.io:8082/book/${bookId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ function BookDetail() {
           }
         );
 
-        const response4 = await axios.get(`http://localhost:8082/users/${response2.data.memberId}/likes`, {
+        const response4 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${response2.data.memberId}/likes`, {
           headers: {
             Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
           }
@@ -89,7 +89,7 @@ function BookDetail() {
       const token = localStorage.getItem("jwtToken");
       // 좋아요 toggle 요청
       await axios.post(
-        `http://localhost:8082/book/${bookId}/like`,
+        `http://j10c106.p.ssafy.io:8082/book/${bookId}/like`,
         {},
         {
           headers: {
@@ -101,7 +101,7 @@ function BookDetail() {
       // 현재 좋아요 상태를 업데이트하기 위해 잠시 대기
       await new Promise(resolve => setTimeout(resolve, 1000));
       // 다시 서버로부터 좋아요 목록을 받아옴
-      const response4 = await axios.get(`http://localhost:8082/users/${userInfo.memberId}/likes`, {
+      const response4 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${userInfo.memberId}/likes`, {
         headers: {
           Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
         }

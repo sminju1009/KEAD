@@ -22,7 +22,7 @@ function Mypage() {
     try {
       const token = localStorage.getItem('jwtToken'); // 로컬 스토리지에서 JWT 토큰 가져오기
       // console.log(token) 토큰있음
-      const response = await axios.get('http://localhost:8080/users/me', {
+      const response = await axios.get('http://j10c106.p.ssafy.io:8082/users/me', {
         headers: {
           Authorization: `Bearer ${token}` // 요청 헤더에 토큰 포함
         }
