@@ -16,6 +16,7 @@ import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import com.example.pppp.Member.common.MemberLoader;
 
@@ -110,6 +111,11 @@ public class MemberController {
 
     @GetMapping("/nickname/{nickname}/check")
     public ResponseEntity<Boolean> checkNicknameDuplicate(@PathVariable String nickname) {
+        log.info("닉네임 중복 확인 요청이 들어왔습니다. 요청된 닉네임: {}", nickname);
+
+        boolean isDuplicate = memberService.checkNicknameDuplicate(nickname);
+
+        log.info("닉네임 '{}'에 대한 중복 확인 결과: {}", nickname, isDuplicate);
         return ResponseEntity.ok(memberService.checkNicknameDuplicate(nickname));
     }
 
@@ -120,5 +126,8 @@ public class MemberController {
         Member member = memberLoader.getMember();
         return ResponseEntity.status(200).body(MemberResponseDto.of(member));
     }
+
+
+
 
 }
