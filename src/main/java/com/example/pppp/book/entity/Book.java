@@ -33,7 +33,7 @@ public class Book {
     @Column(nullable = false, name="book_category")
     private int bookCategory;
 
-    private int series;
+    private Integer series;
 
     @Column(name="number_of_pages")
     private int numberOfPages;
