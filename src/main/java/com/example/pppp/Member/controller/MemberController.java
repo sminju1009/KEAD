@@ -25,7 +25,7 @@ import java.time.LocalDate;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin(origins = "http://j10c106.p.ssafy.io:3000")
+@CrossOrigin(origins = "http://j10c106.p.ssafy.io", allowedHeaders = "*")
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
