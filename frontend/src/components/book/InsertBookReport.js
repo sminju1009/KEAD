@@ -17,7 +17,7 @@ function BookShelf() {
     const fetchBookData = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await axios.get('https://j10c106.p.ssafy.io:8082/users/me', {
+        const response = await axios.get('http://j10c106.p.ssafy.io:8082/users/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -25,7 +25,7 @@ function BookShelf() {
 
         memberIdRef.current = response.data;
 
-        const response2 = await axios.get(`https://j10c106.p.ssafy.io:8082/book/${detail}`, {
+        const response2 = await axios.get(`http://j10c106.p.ssafy.io:8082/book/${detail}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -57,7 +57,7 @@ function BookShelf() {
         bookMemberRate: 1
       };
       //console.log("dada",data)
-      await axios.post(`https://j10c106.p.ssafy.io:8082/users/mybookshelf`, data, {
+      await axios.post(`http://j10c106.p.ssafy.io:8082/users/mybookshelf`, data, {
         headers: {
           Authorization: `Bearer ${token}`
         }
