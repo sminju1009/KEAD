@@ -46,28 +46,24 @@ function BookShelf() {
 
   const handleInsert = async () => {
     try {
-      const bookimf = bookIdRef.current;
-
-      //console.log(bookimf)
-      //console.log(reportContent)
-
       const token = localStorage.getItem('jwtToken');
       
-      await axios.post(`http://j10c106.p.ssafy.io:8082/users/mybookshelf`, {
-        memberId: memberIdRef.current,
-        bookId: bookimf.bookId,
-        Isbn: bookimf.isbn,
+      const data = {
+        memberId: memberIdRef.current.memberId,
+        bookId: bookIdRef.current.bookId,
+        isbn: String(bookIdRef.current.isbn),
         reportContent: reportContent,
         reportTime: "2024-04-02",
-        bookMemberRate : 1
-      }, {
+        bookMemberRate: 1
+      };
+      //console.log("dada",data)
+      await axios.post(`http://j10c106.p.ssafy.io:8082/users/mybookshelf`, data, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
       
-
-      //window.location.href = '/';
+      window.location.href = '/';
     } catch (error) {
       console.error('Error inserting report:', error);
     }
