@@ -11,7 +11,7 @@ function BookShelf() {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem('jwtToken'); // 로컬 스토리지에서 JWT 토큰 가져오기
-        const response = await axios.get('http://localhost:8082/users/me', {
+        const response = await axios.get('https://j10c106.p.ssafy.io:8082/users/me', {
           headers: {
             Authorization: `Bearer ${token}` // 요청 헤더에 토큰 포함
           }
@@ -21,7 +21,7 @@ function BookShelf() {
  
         //console.log(response.data)
         // 두 번째 요청 시작
-        const response2 = await axios.get(`http://localhost:8082/users/${response.data.memberId}/mybookshelf`, {
+        const response2 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/mybookshelf`, {
           headers: {
             Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
           }
@@ -29,7 +29,7 @@ function BookShelf() {
   
         // 서버로부터 받은 데이터를 상태에 설정합니다.
         setBookData(response2.data);
-        console.log(response2.data);
+        //console.log(response2.data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user info or book data:', error);
