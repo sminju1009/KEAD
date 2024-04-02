@@ -92,7 +92,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8080", "http://localhost:3000", "http://localhost:5173","http://localhost:8081", "http://localhost:5174", "http://localhost:5175", "https://c210-67728.web.app")
+                        .allowedOrigins("http://j10c106.p.ssafy.io:8082", "http://j10c106.p.ssafy.io:8080", "http://j10c106.p.ssafy.io:3000", "http://j10c106.p.ssafy.io:5173","http://j10c106.p.ssafy.io:8081", "http://j10c106.p.ssafy.io:5174", "http://j10c106.p.ssafy.io:5175", "https://c210-67728.web.app")
                         .allowedMethods("OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
                         .allowedHeaders("*")
                         .exposedHeaders(JwtTokenUtil.HEADER_STRING)
