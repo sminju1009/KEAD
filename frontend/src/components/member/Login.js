@@ -31,11 +31,11 @@ function Login() {
         // axios를 사용하여 로그인 요청 보내기
         // console.log('fghfgf/',loginData)
         const response = await axios.post('http://j10c106.p.ssafy.io:8082/users/login', loginData);
-        console.log(response)
+        // console.log(response)
         if (response.data.statusCode == 200) {
           const userInfo = response.data.nickname;
           const token = response.data.token; // 응답에서 토큰 추출
-          console.log('유저정보', userInfo) // 사용자정보추출~
+          // console.log('유저정보', userInfo) // 사용자정보추출~
           
           localStorage.setItem('jwtToken', token);
          

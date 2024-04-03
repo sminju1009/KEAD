@@ -24,7 +24,7 @@ function Profile() {
         }
       });
       setUserInfo(response.data);
-      console.log(response.data); // 응답 데이터를 콘솔에 출력
+      // console.log(response.data); // 응답 데이터를 콘솔에 출력
     } catch (error) {
       console.error('Error fetching user info:', error);
       // 인증 실패 시 로그인 페이지로 리다이렉트 등의 처리를 할 수 있음
@@ -46,7 +46,7 @@ function Profile() {
           Authorization: `Bearer ${token}` // 헤더에 토큰 추가
         }
       });
-      console.log("중복확인 response:", response.data)
+      // console.log("중복확인 response:", response.data)
       
       if (response.data === true) {
         alert('이미 사용중인 닉네임입니다.');
@@ -67,9 +67,9 @@ function Profile() {
         password: password, // 사용자가 입력한 새로운 비밀번호
         memberGrade: selectedGrade, // 선택한 학년
       };
-      console.log('닉네임:', nickname)
-      console.log('비밀번호:', password)
-      console.log("유저 Id:", userInfo.memberId)
+      // console.log('닉네임:', nickname)
+      // console.log('비밀번호:', password)
+      // console.log("유저 Id:", userInfo.memberId)
       const memberId = userInfo.memberId
       const response = await axios.post(`http://j10c106.p.ssafy.io:8082/users/${memberId}/reset`, requestBody, {
         headers: {
@@ -78,7 +78,7 @@ function Profile() {
       });
 
       // 요청 성공 시 로직...
-      console.log(response.data);
+      // console.log(response.data);
       alert('회원 정보가 성공적으로 수정되었습니다.');
     } catch (error) {
       console.error('회원 정보 수정 중 에러 발생:', error);

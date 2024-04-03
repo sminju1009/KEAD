@@ -28,7 +28,7 @@ function Mypage() {
         }
       });
       setUserInfo(response.data);
-      console.log(response.data); // 응답 데이터를 콘솔에 출력
+      // console.log(response.data); // 응답 데이터를 콘솔에 출력
     } catch (error) {
       console.error('Error fetching user info:', error);
       // 인증 실패 시 로그인 페이지로 리다이렉트 등의 처리를 할 수 있음

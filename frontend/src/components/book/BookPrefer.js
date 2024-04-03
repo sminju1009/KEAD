@@ -19,7 +19,7 @@ function BookPrefer() {
         });
   
         setUserInfo(response.data);
-        console.log(response.data)
+        // console.log(response.data)
 
         // 두 번째 요청 시작
         const response2 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/likes`, {
@@ -30,10 +30,10 @@ function BookPrefer() {
   
         // 서버로부터 받은 데이터를 상태에 설정합니다.
         setBookData(response2.data);
-        console.log(response2.data);
+        // console.log(response2.data);
 
         const bookIds = response2.data.map(item => item.bookId); // bookId만 추출하여 배열 생성
-        console.log(bookIds)
+        // console.log(bookIds)
 
         // 각 bookId에 대해 요청을 보내고 결과를 배열로 저장
         const bookResponses = await Promise.all(bookIds.map(bookId =>
@@ -49,11 +49,11 @@ function BookPrefer() {
           imgUrl: response.data.imgUrl,
           bookId: response.data.bookId
         }));
-        console.log(booksData)
+        // console.log(booksData)
         // 상태에 설정
         setBookData(booksData);
         setLoading(false);
-        console.log()
+
       } catch (error) {
         console.error('Error fetching user info or book data:', error);
         setLoading(false);

@@ -35,7 +35,7 @@ function LowerGradesBookPick() {
         });
   
         setBookData(response2.data);
-        console.log(response2)
+        // console.log(response2)
         setLoading(false);
       } catch (error) {
         console.error('Error fetching book data:', error);

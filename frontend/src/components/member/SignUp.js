@@ -23,7 +23,7 @@ function SignUp() {
 
   const handleGradeClick = (memberGrade) => {
     setFormData((currentFormData) => {
-      console.log('Selected grade before update:', currentFormData.memberGrade);
+      // console.log('Selected grade before update:', currentFormData.memberGrade);
       return {
         ...currentFormData,
         memberGrade,
@@ -34,25 +34,25 @@ function SignUp() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Submitting formData:', formData);
+    // console.log('Submitting formData:', formData);
 
     const submittedData = {
       ...formData,
       sex: parseInt(formData.sex, 10), // 10진수로 변환
     };
 
-    console.log(typeof formData.memberGrade);
-    console.log(typeof formData.sex);
+    // console.log(typeof formData.memberGrade);
+    // console.log(typeof formData.sex);
 
-    console.log('Submitting submittedData:', submittedData);
+    // console.log('Submitting submittedData:', submittedData);
     try {
         // 백엔드 엔드포인트로 POST 요청 보내기
         const response = await axios.post('http://j10c106.p.ssafy.io:8082/users/signup', submittedData);
         
         alert('회원가입이 완료되었습니다.');
-        console.log('Navigating to /login');
+        // console.log('Navigating to /login');
         navigate('/login');
-        console.log('Navigate called');
+        // console.log('Navigate called');
 
         // 회원가입 성공 후, 필요한 로직 구현 (예: 로그인 페이지로 리다이렉트)
       } catch (error) {

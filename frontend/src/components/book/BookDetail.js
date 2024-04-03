@@ -33,7 +33,7 @@ function BookDetail() {
           }
         });
         setUserInfo(response2.data);
-        console.log(response2.data);
+        // console.log(response2.data);
 
         const memberId = response2.data.memberId; // memberId 추출
         // X-UserId 헤더에 memberId 추가하여 요청 보내기
@@ -55,16 +55,16 @@ function BookDetail() {
   
         // 서버로부터 받은 데이터를 상태에 설정합니다.
         setLike(response4.data);
-        console.log(response4.data);
+        // console.log(response4.data);
         const bookIds = response4.data.map(item => item.bookId); // bookId만 추출하여 배열 생성
-        console.log(bookIds)
-        console.log(bookId)
+        // console.log(bookIds)
+        // console.log(bookId)
 
         // bookIds 배열에 현재 bookId가 포함되어 있는지 여부 확인
         const isLiked = bookIds.includes(parseInt(bookId));
         // 현재 좋아요 상태 설정
         setLiked(isLiked);
-        console.log(isLiked)
+        // console.log(isLiked)
 
       } catch (error) {
         console.error("Catch Error", error);
@@ -108,15 +108,15 @@ function BookDetail() {
       });
       // 서버로부터 받은 데이터를 상태에 설정합니다.
       setLike(response4.data);
-      console.log(response4.data);
+      // console.log(response4.data);
       const updatedBookIds = response4.data.map(item => item.bookId); // bookId만 추출하여 배열 생성
-      console.log(updatedBookIds);
+      // console.log(updatedBookIds);
 
       // 업데이트된 bookIds 배열에 현재 bookId가 포함되어 있는지 여부 확인
       const isLiked = updatedBookIds.includes(parseInt(bookId));
       // 현재 좋아요 상태 설정
       setLiked(isLiked);
-      console.log(isLiked);
+      // console.log(isLiked);
 
     } catch (error) {
       console.error("Catch Error", error);

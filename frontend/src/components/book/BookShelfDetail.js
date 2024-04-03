@@ -21,7 +21,7 @@ function BookShelf() {
   
           setUserInfo(response.data);
           memberIdRef.current = response.data.memberId; // memberIdRef에 값 설정
-          console.log(memberIdRef.current);
+          // console.log(memberIdRef.current);
   
           const response2 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/mybookshelf/${detail}`, {
             headers: {
@@ -30,7 +30,7 @@ function BookShelf() {
           });
   
           setBookData(response2.data);
-          console.log(response2.data);
+          // console.log(response2.data);
   
           setLoading(false);
         } catch (error) {
