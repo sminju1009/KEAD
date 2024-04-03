@@ -29,7 +29,7 @@ function Navbar() {
 
   return (
     <nav className='navbar'>
-      <div className='background-orange book-recommendation-box'>
+      <div className='background-orange book-recommendation-box2'>
         <ul style={{ listStyleType: "none", padding: 0 }}>
           <li>
             <Link to="/">
