@@ -30,7 +30,7 @@ function SignUp() {
     e.preventDefault();
     try {
         // 백엔드 엔드포인트로 POST 요청 보내기
-        const response = await axios.post('http://j10c106.p.ssafy.io:8082/users/signup', formData);
+        const response = await axios.post('http://localhost:8082/users/signup', formData);
         console.log(response.data);
         alert('회원가입이 완료되었습니다.');
         // 회원가입 성공 후, 필요한 로직 구현 (예: 로그인 페이지로 리다이렉트)

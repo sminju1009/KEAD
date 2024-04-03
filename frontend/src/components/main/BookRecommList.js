@@ -17,26 +17,31 @@ function LowerGradesBookPick() {
 
   const [bookData, setBookData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState({ nickname: '' });
 
   useEffect(() => {
     const fetchBookData = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await axios.get('http://j10c106.p.ssafy.io:8082/users/me', {
+        const response = await axios.get('http://localhost:8082/users/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-        //console.log(response.data)
-        const response2 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/recommends`, {
+        setUserInfo(response.data)
+        console.log(response.data)
+        const response2 = await axios.get(`http://localhost:8082/users/${response.data.memberId}/recommends`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-  
-        setBookData(response2.data);
-        console.log(response2.data);
 
+        if(response2.data==""){
+          alert("둑후감을 작성하세요");
+          window.location.href = '/';
+        }
+        setBookData(response2.data);
+        console.log(response2);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching book data:', error);
@@ -55,7 +60,7 @@ function LowerGradesBookPick() {
 
   return (
     <div className='bookPick'>
-      <h3> my 추천도서</h3>
+      <h3> {userInfo.nickname} 추천도서</h3>
       {loading ? (
         <p>Loading...</p>
       ) : (

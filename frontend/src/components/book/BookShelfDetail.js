@@ -13,7 +13,7 @@ function BookShelf() {
       const fetchUserInfo = async () => {
         try {
           const token = localStorage.getItem('jwtToken');
-          const response = await axios.get('http://j10c106.p.ssafy.io:8082/users/me', {
+          const response = await axios.get('http://localhost:8082/users/me', {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -23,7 +23,7 @@ function BookShelf() {
           memberIdRef.current = response.data.memberId; // memberIdRef에 값 설정
           console.log(memberIdRef.current);
   
-          const response2 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/mybookshelf/${detail}`, {
+          const response2 = await axios.get(`http://localhost:8082/users/${response.data.memberId}/mybookshelf/${detail}`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -45,7 +45,7 @@ function BookShelf() {
     const handleDelete = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        await axios.delete(`http://j10c106.p.ssafy.io:8082/users/${memberIdRef.current}/mybookshelf/${detail}`, { // memberIdRef.current를 사용
+        await axios.delete(`http://localhost:8082/users/${memberIdRef.current}/mybookshelf/${detail}`, { // memberIdRef.current를 사용
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -65,7 +65,7 @@ function BookShelf() {
 
   return (
     <div style={{ position: 'relative' }}>
-      <h2>{userInfo.nickname}나의책장 상세 정보</h2>
+      <h2>{userInfo.nickname}의 독후감 정보</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (

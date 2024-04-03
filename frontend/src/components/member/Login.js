@@ -30,7 +30,7 @@ function Login() {
     try {
         // axios를 사용하여 로그인 요청 보내기
         // console.log('fghfgf/',loginData)
-        const response = await axios.post('http://j10c106.p.ssafy.io:8082/users/login', loginData);
+        const response = await axios.post('http://localhost:8082/users/login', loginData);
         console.log(response)
         if (response.data.statusCode == 200) {
           const userInfo = response.data.nickname;

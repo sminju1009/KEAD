@@ -22,19 +22,20 @@ function LowerGradesBookPick() {
     const fetchBookData = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await axios.get('http://j10c106.p.ssafy.io:8082/users/me', {
+        const response = await axios.get('http://localhost:8082/users/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
   
-        const response2 = await axios.get(`http://j10c106.p.ssafy.io:8082/users/${response.data.memberId}/mybookshelf`, {
+        const response2 = await axios.get(`http://localhost:8082/users/booklist`,{//${response.data.memberId}/mybookshelf`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
   
         setBookData(response2.data);
+        console.log(response2)
         setLoading(false);
       } catch (error) {
         console.error('Error fetching book data:', error);
@@ -64,7 +65,7 @@ function LowerGradesBookPick() {
           modules={[FreeMode]}
           className="mySwiper"
         >
-          {bookData.slice(100, 120).map((book) => ( // 예시로 5번째부터 10번째까지의 요소를 추출
+          {bookData.slice(80, 100).map((book) => ( // 예시로 5번째부터 10번째까지의 요소를 추출
             <SwiperSlide key={book.bookId}>
               <img
                 className="bookImage"
@@ -88,7 +89,7 @@ function LowerGradesBookPick() {
           modules={[FreeMode]}
           className="mySwiper"
         >
-          {bookData.slice(40, 60).map((book) => ( // 예시로 5번째부터 10번째까지의 요소를 추출
+          {bookData.slice(45, 65).map((book) => ( // 예시로 5번째부터 10번째까지의 요소를 추출
             <SwiperSlide key={book.bookId}>
               <img
                 className="bookImage"
@@ -113,7 +114,7 @@ function LowerGradesBookPick() {
           modules={[FreeMode]}
           className="mySwiper"
         >
-          {bookData.slice(65, 85).map((book) => ( // 예시로 5번째부터 10번째까지의 요소를 추출
+          {bookData.slice(0, 20).map((book) => ( // 예시로 5번째부터 10번째까지의 요소를 추출
             <SwiperSlide key={book.bookId}>
               <img
                 className="bookImage"
