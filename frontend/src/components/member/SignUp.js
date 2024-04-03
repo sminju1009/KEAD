@@ -10,6 +10,7 @@ function SignUp() {
     password: '',
     memberGrade: null,
     school: '',
+    sex: '',
   });
 
   const handleInputChange = (e) => {
@@ -35,10 +36,18 @@ function SignUp() {
     e.preventDefault();
     console.log('Submitting formData:', formData);
 
-        console.log(typeof formData.memberGrade);
+    const submittedData = {
+      ...formData,
+      sex: parseInt(formData.sex, 10), // 10진수로 변환
+    };
+
+    console.log(typeof formData.memberGrade);
+    console.log(typeof formData.sex);
+
+    console.log('Submitting submittedData:', submittedData);
     try {
         // 백엔드 엔드포인트로 POST 요청 보내기
-        const response = await axios.post('http://j10c106.p.ssafy.io:8082/users/signup', formData);
+        const response = await axios.post('http://j10c106.p.ssafy.io:8082/users/signup', submittedData);
         
         alert('회원가입이 완료되었습니다.');
         console.log('Navigating to /login');
@@ -103,6 +112,29 @@ function SignUp() {
               </button>
             ))}
           </div>
+        </div>
+        <div className="inputField">
+          <h3>성별</h3>
+          <label>
+            <input
+              type="radio"
+              name="sex"
+              value="0" // 남자
+              checked={formData.sex === '0'}
+              onChange={handleInputChange}
+            />
+            남자
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="sex"
+              value="1" // 여자
+              checked={formData.sex === '1'}
+              onChange={handleInputChange}
+            />
+            여자
+          </label>
         </div>
         <div className="inputemail">
           <input
