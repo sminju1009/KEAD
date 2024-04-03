@@ -130,7 +130,7 @@ function BookDetail() {
 
   return (
     <div>
-      <button onClick={handleGoBack}>뒤로가기</button>
+      <button className="button button1" onClick={handleGoBack}>뒤로가기</button>
       <h2>책 상세 정보</h2>
       <h2>{book.book_name}</h2>
       <img src={book.imgUrl} alt={book.book_name} style={{ maxWidth: '50%' }} />
@@ -150,12 +150,12 @@ function BookDetail() {
         <strong>ISBN:</strong> {book.isbn}
       </p>
       {/* 좋아요 버튼 */}
-      <button onClick={toggleLike}>
+      <button className="button button2" onClick={toggleLike}>
         {liked ? <FcLike /> : <FcLikePlaceholder />}
         좋아요
       </button>
       {/* 독후감 작성 버튼 */}
-      <button onClick={handleWriteReview}>독후감 작성</button>
+      <button className="container button button3" onClick={handleWriteReview}>독후감 작성</button>
     </div>
   );
 }
