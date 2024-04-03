@@ -11,7 +11,7 @@ function RankDetail() {
     const fetchBookInfo = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await axios.get('http://j10c106.p.saffy.io:8082/users/quiz/1', {
+        const response = await axios.get('http://j10c106.p.ssafy.io:8082/users/quiz/1', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
