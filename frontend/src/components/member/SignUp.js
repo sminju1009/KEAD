@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './SignUp.css';
-
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -30,7 +30,7 @@ function SignUp() {
     });
   };
   
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Submitting formData:', formData);
@@ -41,6 +41,7 @@ function SignUp() {
         const response = await axios.post('http://j10c106.p.ssafy.io:8082/users/signup', formData);
         
         alert('회원가입이 완료되었습니다.');
+        navigate('/login')
         // 회원가입 성공 후, 필요한 로직 구현 (예: 로그인 페이지로 리다이렉트)
       } catch (error) {
         console.error('회원가입 요청 처리 중 에러 발생:', error);
