@@ -46,7 +46,7 @@ function Mypage() {
     try {
       const token = localStorage.getItem('jwtToken');
       if (token) { // 토큰이 존재하는 경우에만 요청 보내도록 수정
-        await axios.delete('http://j10c106.p.ssafy.io:8082/users/deleteflask', { // DELETE 요청을 보내기 위해 axios.delete 사용
+        await axios.get('http://j10c106.p.ssafy.io:8082/users/deleteflask', { // DELETE 요청을 보내기 위해 axios.delete 사용
           headers: {
             Authorization: `Bearer ${token}`
           }
