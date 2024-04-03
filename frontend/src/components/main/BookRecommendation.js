@@ -10,7 +10,7 @@ function BookRecommendation() {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await axios.get('http://localhost:8082/users/me', {
+        const response = await axios.get('http://j10c106.p.ssafy.io:8082/users/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }

@@ -42,7 +42,20 @@ function Mypage() {
     navigate('/profile')
   }
 
-  const logout = () => {
+  const logout = async () => { // async 함수로 수정
+    try {
+      const token = localStorage.getItem('jwtToken');
+      if (token) { // 토큰이 존재하는 경우에만 요청 보내도록 수정
+        await axios.delete('http://j10c106.p.ssafy.io:8082/users/deleteflask', { // DELETE 요청을 보내기 위해 axios.delete 사용
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching user info or book data:', error);
+      // 에러 처리
+    }
     localStorage.removeItem('jwtToken'); // 로컬 스토리지에서 토큰 삭제
     navigate('/login'); // 로그인 페이지로 리다이렉트
   };
