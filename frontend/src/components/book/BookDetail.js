@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { FcLike } from "react-icons/fc";
+import "./BookDetail.css"
 
 function BookDetail() {
   const [userInfo, setUserInfo] = useState({ nickname: '' });
