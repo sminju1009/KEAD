@@ -35,13 +35,13 @@ function LowerGradesBookPick() {
             Authorization: `Bearer ${token}`
           }
         });
-
+        console.log(response2);
         if(response2.data==""){
           alert("둑후감을 작성하세요");
           window.location.href = '/';
         }
         setBookData(response2.data);
-        console.log(response2);
+        
         setLoading(false);
       } catch (error) {
         console.error('Error fetching book data:', error);
