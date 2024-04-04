@@ -127,3 +127,8 @@ https://www.figma.com/file/rI5N6iYZeS6RvyWlxyZD6Q/Untitled?type=design&node-id=0
 ### 발표 장표
 
 static 디렉토리의 `KEAD_최종발표.pdf` 파일입니다.
+
+### 포팅 매뉴얼
+
+https://western-approach-80b.notion.site/4733d5e20c2c401993fceee586fdb8f5?pvs=74<br>
+pdf 파일로 `exec` 폴더에 들어가 있습니다.
