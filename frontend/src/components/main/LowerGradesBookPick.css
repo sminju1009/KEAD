@@ -1,0 +1,12 @@
+.book-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px; /* 이미지 사이의 간격 */
+  }
+  
+.bookImage {
+width: 100px; /* 이미지 너비 */
+flex: 0 0 auto; /* 추가적인 flexbox 설정으로 이미지가 축소되지 않도록 함 */
+
+}
+
