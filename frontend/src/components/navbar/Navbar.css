@@ -1,0 +1,25 @@
+.navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.background-orange {
+  background-color: #EB9F4A; 
+}
+
+.book-recommendation-box2 {
+padding: 0px; /* 내부 여백 */
+margin: 0px; /* 외부 여백 */
+text-align: center; /* 텍스트 중앙 정렬 */
+border: 2px solid #D9822B; /* 테두리 설정 */
+}
+
+.navbar li {
+display: inline;
+margin-right: 30px; /* 오른쪽 마진으로 간격 조정 */
+}
+
+.navbar img {
+cursor: pointer; /* 이미지에 마우스 오버 시 커서 변경 */
+}
