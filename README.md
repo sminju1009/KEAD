@@ -2,7 +2,7 @@
 
 ## 서비스 url
 
-http://j10c106.ssafy.io
+http://j10c106.p.ssafy.io
 
 ## 기획 배경 및 프로젝트 개요
 
